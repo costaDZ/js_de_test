@@ -26,25 +26,34 @@ function generateGraph() {
     //[!IMPORTANT => we can creat a new Object refrence if we want to save our original data]
     let dataWithTotal = [];
 
-    // add total (key) to each object in our data
+    let objProps = [];
+
+    // add total(key) to each object in our data
     data.reduce((acc, val, i) => {
         acc = val;
-        dataWithTotal.push(val)
-        dataWithTotal[i]["total"] = getTotal(acc);
+        dataWithTotal.push(val);
+
+        if (objProps.length === 0) {
+            objProps = Object
+                .getOwnPropertyNames(val)
+                .filter(item => item !== "period");
+        }
+
+        let total = objProps.reduce((acc, item) => acc += val[item], 0) / 3;
+
+        dataWithTotal[i]["total"] = total;
     }, {});
+
 
     // get all the [period] keys 
     let labels = dataWithTotal.map(item => item['period']);
 
-    // get all the keys from one object to use theme later
-    let objProps = Object.getOwnPropertyNames(dataWithTotal[0]);
-
     //get graph values in one array buy using a helper function
+    objProps.push("total");
+
     let graphValues = [];
     for (let prop of objProps) {
-        if (prop !== "period") {
-            graphValues.push(getGraphValues(dataWithTotal, prop));
-        }
+        graphValues.push(getGraphValues(dataWithTotal, prop));
     }
 
     // put the graph data in our chart
@@ -60,17 +69,6 @@ function generateGraph() {
 
 //[!IMPORTANT] => we can use helper functions insite the main function 
 //but if we want to use latter we keep it outside
-
-// a helper function 
-function getTotal(obj) {
-    let result = 0;
-    for (let keys in obj) {
-        if (keys !== "period") {
-            result += obj[keys];
-        }
-    }
-    return result / 3;
-}
 
 // a helper function 
 function getGraphValues(obj, prop) {
@@ -93,7 +91,6 @@ function getGraphValues(obj, prop) {
 }
 
 generateGraph();
-
 
 //I have added a lot of comments to my code 
 //which is unusual to make some points for the reader only.
