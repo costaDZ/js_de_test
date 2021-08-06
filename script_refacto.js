@@ -33,7 +33,7 @@ function generateGraph() {
         acc = val;
         dataWithTotal.push(val);
 
-        if (objProps.length === 0) {
+        if (!objProps.length) {
             objProps = Object
                 .getOwnPropertyNames(val)
                 .filter(item => item !== "period");
