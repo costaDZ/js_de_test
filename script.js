@@ -21,32 +21,31 @@ var data = [
 
 function generateGraph() {
   var dataWithTotal = [];
-  
+
   for (var i = 0; i < data.length; i++) {
     var temp = data[i];
     total = 0;
     for (var key in data[i]) {
-      if(key !== "period") {
+      if (key !== "period") {
         total += data[i][key];
       }
     }
     temp.total = total / 3;
     dataWithTotal.push(temp);
   }
-  
   var labels = [];
-  
+
   for (var i = 0; i < dataWithTotal.length; i++) {
     labels.push(dataWithTotal[i]['period']);
   }
-  
+
   var graphValues = [];
   var keys = Object.keys(dataWithTotal[0]);
-  
+
   for (var i = 0; i < keys.length; i++) {
-    if(keys[i] !== "period") {
+    if (keys[i] !== "period") {
       var temp = {
-        label: keys[i], 
+        label: keys[i],
         data: [],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
@@ -59,17 +58,20 @@ function generateGraph() {
           'rgba(54, 162, 235, 1)',
           'rgba(255, 206, 86, 1)',
           'rgba(75, 192, 192, 1)'
-        ], 
+        ],
       };
-  
+
+      console.log(dataWithTotal);
       for (var n = 0; n < dataWithTotal.length; n++) {
+        console.log(dataWithTotal[n][keys[i]]);
+
         temp.data.push(dataWithTotal[n][keys[i]])
       }
-      
+
       graphValues.push(temp);
     }
   }
-  
+  console.log(graphValues);
   var ctx = document.getElementById('myChart').getContext('2d');
   var myChart = new Chart(ctx, {
     type: 'line',
