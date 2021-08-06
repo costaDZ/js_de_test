@@ -22,8 +22,8 @@ const data = [
 
 
 function generateGraph() {
-    // creat a new arr to grap the data 
-    //[!IMPORTANT => we can creat a new Object refrence if we want to save our original data as it is]
+    // creat a new arr and grap the data 
+    //[!IMPORTANT => we can creat a new Object refrence if we want to save our original data]
     let dataWithTotal = [...data];
 
     // add total (key) to each object in our data
@@ -32,13 +32,13 @@ function generateGraph() {
         dataWithTotal[i]["total"] = getTotal(acc);
     }, {});
 
-    // get all the [period] keys from our data
+    // get all the [period] keys 
     let labels = dataWithTotal.map(item => item['period']);
 
-    // get all the keys from one object to use it later
+    // get all the keys from one object to use theme later
     let objProps = Object.getOwnPropertyNames(dataWithTotal[0]);
 
-    // get graph values in one array buy using a helper function
+    //get graph values in one array buy using a helper function
     let graphValues = [];
     for (let prop of objProps) {
         if (prop !== "period") {
@@ -73,7 +73,7 @@ function getTotal(obj) {
 
 // a helper function 
 function getGraphValues(obj, prop) {
-    let temp = {
+    return temp = {
         label: prop,
         data: obj.map(item => item[prop]),
         backgroundColor: [
@@ -89,11 +89,15 @@ function getGraphValues(obj, prop) {
             'rgba(75, 192, 192, 1)'
         ],
     };
-    return temp;
 }
 
 generateGraph();
 
+
+//I have added a lot of comments to my code 
+//which is unusual to make some points for the reader only.
+
 // :) good bye 
+
 
 
