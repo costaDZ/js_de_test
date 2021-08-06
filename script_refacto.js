@@ -22,13 +22,11 @@ const data = [
 
 
 function generateGraph() {
-    // creat a new arr and grap the data 
+
     //[!IMPORTANT => we can creat a new Object refrence if we want to save our original data]
     let dataWithTotal = [];
-
     let objProps = [];
 
-    // add total(key) to each object in our data
     data.reduce((acc, val, i) => {
         acc = val;
         dataWithTotal.push(val);
@@ -40,15 +38,13 @@ function generateGraph() {
         }
 
         let total = objProps.reduce((acc, item) => acc += val[item], 0) / 3;
-
         dataWithTotal[i]["total"] = total;
     }, {});
 
 
-    // get all the [period] keys 
+    // get all the [period] key values 
     let labels = dataWithTotal.map(item => item['period']);
 
-    //get graph values in one array buy using a helper function
     objProps.push("total");
 
     let graphValues = [];
@@ -56,7 +52,6 @@ function generateGraph() {
         graphValues.push(getGraphValues(dataWithTotal, prop));
     }
 
-    // put the graph data in our chart
     const ctx = document.getElementById('myChart').getContext('2d');
     let myChart = new Chart(ctx, {
         type: 'line',
