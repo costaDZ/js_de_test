@@ -24,11 +24,12 @@ const data = [
 function generateGraph() {
     // creat a new arr and grap the data 
     //[!IMPORTANT => we can creat a new Object refrence if we want to save our original data]
-    let dataWithTotal = [...data];
+    let dataWithTotal = [];
 
     // add total (key) to each object in our data
-    dataWithTotal.reduce((acc, val, i) => {
+    data.reduce((acc, val, i) => {
         acc = val;
+        dataWithTotal.push(val)
         dataWithTotal[i]["total"] = getTotal(acc);
     }, {});
 
